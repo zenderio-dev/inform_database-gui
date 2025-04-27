@@ -1,1 +1,1 @@
-# inform_database-gui
+Запускать файл interface.py
