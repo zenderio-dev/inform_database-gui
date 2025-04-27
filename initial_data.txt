@@ -1,0 +1,19 @@
+PRODUCTS
+Name,Category,Price,Stock_Quantity
+Laptop,Electronics,1200.00,10
+Mouse,Electronics,25.50,50
+T-Shirt,Clothing,15.00,100
+Book,Books,20.00,30
+Coffee Maker,Appliances,80.00,15
+Keyboard,Electronics,75.00,40
+Jeans,Clothing,60.00,75
+Notebook,Books,5.00,200
+Smartphone,Electronics,900.00,12
+Blender,Appliances,50.00,25
+CUSTOMERS
+Name,Email
+Alice Smith,alice.smith@example.com
+Bob Johnson,bob.johnson@example.com
+Charlie Brown,charlie.brown@example.com
+Diana Lee,diana.lee@example.com
+Ethan Williams,ethan.williams@example.com
