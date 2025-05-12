@@ -51,7 +51,7 @@ def populate_database():
     cursor = conn.cursor()
 
     try:
-        with open(INITIAL_DATA_FILE, 'r') as f:
+        with open(INITIAL_DATA_FILE, 'r', encoding='utf-8') as f:
             current_table = None
             columns = []
             for line in f:
@@ -69,15 +69,20 @@ def populate_database():
                 elif current_table and columns:
                     values = [val.strip() for val in line.split(',')]
                     if current_table == 'Products' and len(columns) == 4 and len(values) == 4:
-                        cursor.execute(
-                            'INSERT INTO Products (name, category, price, stock_quantity) VALUES (?, ?, ?, ?)',
-                            (values[0], values[1], float(values[2]), int(values[3]))
-                        )
+                        cursor.execute('SELECT 1 FROM Products WHERE name = ?', (values[0],))
+                        if not cursor.fetchone():
+                            cursor.execute(
+                                'INSERT INTO Products (name, category, price, stock_quantity) VALUES (?, ?, ?, ?)',
+                                (values[0], values[1], float(values[2]), int(values[3]))
+                            )
                     elif current_table == 'Customers' and len(columns) == 2 and len(values) == 2:
-                        cursor.execute(
-                            'INSERT INTO Customers (name, email) VALUES (?, ?)',
-                            (values[0], values[1])
-                        )
+                        # Check if customer already exists
+                        cursor.execute('SELECT 1 FROM Customers WHERE email = ?', (values[1],))
+                        if not cursor.fetchone():
+                            cursor.execute(
+                                'INSERT INTO Customers (name, email) VALUES (?, ?)',
+                                (values[0], values[1])
+                            )
         conn.commit()
     except FileNotFoundError:
         print(f"Warning: File '{INITIAL_DATA_FILE}' not found. Skipping initial data population.")
